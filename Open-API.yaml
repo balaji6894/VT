@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: VirusTotal URL Analysis API
+  description: API to check URL reputation for phishing or malware
+  version: "1.0"
+
+servers:
+  - url: https://www.virustotal.com/api/v3
+
+paths:
+  /urls:
+    post:
+      summary: Submit URL for scanning
+      operationId: scanUrl
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: URL to analyze
+      responses:
+        '200':
+          description: URL submitted successfully
+
+  /urls/{id}:
+    get:
+      summary: Get URL analysis report
+      operationId: getUrlReport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Base64 encoded URL
+      responses:
+        '200':
+          description: URL analysis result
